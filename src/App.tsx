@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
 import BootSplash from "react-native-bootsplash";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import OnboardingScreen from "./screens/OnBoardingScreen";
+import LoginScreen from "./screens/LoginScreen";
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
     useEffect(() => {
@@ -15,22 +20,13 @@ const App = () => {
     }, []);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Hello, World!</Text>
-        </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
     );
 };
 
 export default App;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    text: {
-        fontSize: 20,
-        color: "#333",
-    },
-});
