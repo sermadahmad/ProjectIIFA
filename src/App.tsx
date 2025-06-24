@@ -3,7 +3,7 @@ import BootSplash from "react-native-bootsplash";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnboardingScreen from "./screens/OnBoardingScreen";
-import LoginScreen from "./screens/LoginScreen";
+import LoginScreen from "./screens/AuthScreen";
 
 const Stack = createNativeStackNavigator();
 

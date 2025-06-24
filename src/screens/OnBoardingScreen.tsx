@@ -22,7 +22,7 @@ const paragraphs = [
 ];
 
 const buttonTexts = [
-    "Skip", 
+    "Skip",
     "Skip",
     "Get Started",
 ];
@@ -45,14 +45,17 @@ const OnBoardingScreen = ({ navigation }: OnBoardingScreenProps) => {
     };
 
     return (
-        <OnBoardingScreenComponent
-            navigation={navigation}
-            image={images[step]}
-            heading={headings[step]}
-            paragraph={paragraphs[step]}
-            buttonText={buttonTexts[step]}
-            handlePress={handlePress}
-        />
+        // <View>
+            <OnBoardingScreenComponent
+                navigation={navigation}
+                image={images[step]}
+                heading={headings[step]}
+                paragraph={paragraphs[step]}
+                buttonText={buttonTexts[step]}
+                handlePress={handlePress}
+                step={step}
+            />
+        // </View>
     );
 };
 
