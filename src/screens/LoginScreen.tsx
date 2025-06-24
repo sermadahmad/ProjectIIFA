@@ -18,12 +18,10 @@ const LoginScreen = () => {
 
     const [heading, setHeading] = React.useState("Welcome Back!");
     const [paragraph, setParagraph] = React.useState("Log in to unlock personalized AI insights and take your social media to the next level.");
-
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [name, setName] = React.useState("");
     const [confirmPassword, setConfirmPassword] = React.useState("");
-
     const [activeTab, setActiveTab] = React.useState("login");
 
     const handleLoginPress = () => {
@@ -98,7 +96,7 @@ const LoginScreen = () => {
                         <View style={styles.signupbtnContainer}>
                             <MySolidButton
                                 text={"Signup"}
-                                handlePress={()=>{}}
+                                handlePress={() => { }}
                             />
                         </View>
 
@@ -141,14 +139,33 @@ const LoginScreen = () => {
                         <MyInputField inputValue={email} setInputValue={setEmail} placeholder={"Enter your Email"} />
                         <MyInputField inputValue={password} setInputValue={setPassword} placeholder={"Enter your Password"} />
 
-                        <Text style={styles.forgotPassword}>Forgot Password?</Text>
+                        <TouchableOpacity>
+                            <Text style={styles.forgotPassword}>Forgot Password?</Text>
+                        </TouchableOpacity>
 
                         <View style={styles.loginbtnContainer}>
-                            <MySolidButton text={"Login"} handlePress={()=>{}}/>
+                            <MySolidButton text={"Login"} handlePress={() => { }} />
 
-                            <Text style={styles.bysigninginText}>
-                                By signing up, you agree to our Term & Condition and Privacy policy
-                            </Text>
+                            <View style={styles.bysigninginTextContainer}>
+                                <Text style={styles.bysigninginText}>
+                                    By signing up, you agree to our{' '}
+                                    <TouchableOpacity>
+                                        <Text
+                                            style={[styles.bysigninginText, styles.linkText]}
+                                        >
+                                            Term & Condition
+                                        </Text>
+                                    </TouchableOpacity>
+                                    {' '}and{' '}
+                                    <TouchableOpacity>
+                                        <Text
+                                            style={[styles.bysigninginText, styles.linkText]}
+                                        >
+                                            Privacy policy
+                                        </Text>
+                                    </TouchableOpacity>
+                                </Text>
+                            </View>
                         </View>
 
 
@@ -167,15 +184,23 @@ const LoginScreen = () => {
 export default LoginScreen;
 
 const styles = StyleSheet.create({
+    bysigninginTextContainer: {
+        marginHorizontal: 30,
+    },
 
     signupbtnContainer: {
-        marginTop: 120,
+        // marginTop: 120,
+        position: "absolute",
+        bottom: 80,
 
     },
 
     loginbtnContainer: {
-        marginTop: 44,
+        // marginTop: 44,
         gap: 12,
+        position: "absolute",
+        bottom: 80,
+        alignItems: "center",
     },
     container: {
         flex: 1,
@@ -223,10 +248,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#DADADA",
     },
     btnContainer: {
+        flex: 1,
         flexDirection: "column",
         gap: 16,
         alignItems: "center",
-        justifyContent: "center",
+        // justifyContent: "center",
         marginTop: 60,
     },
     orText: {
@@ -239,6 +265,7 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     bysigninginText: {
+        // backgroundColor: "gray",
         fontFamily: "Montserrat",
         fontWeight: "400",
         fontSize: 12,
@@ -246,6 +273,10 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         textAlign: "center",
         // paddingHorizontal: 20,
+    },
+    linkText: {
+        color: "#0070C0",
+        textDecorationLine: "underline",
     },
 
     forgotPassword: {

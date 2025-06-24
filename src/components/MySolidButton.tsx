@@ -1,5 +1,5 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import React from 'react';
 
 type MySolidButtonProps = {
     text: string;
@@ -16,9 +16,9 @@ const MySolidButton: React.FC<MySolidButtonProps> = ({ text, handlePress }) => {
             </TouchableOpacity>
         </View>
     );
-}
+};
 
-export default MySolidButton
+export default MySolidButton;
 
 const styles = StyleSheet.create({
         btnText: {
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         width: 398,
         padding: 16,
         borderRadius: 10,
-        marginTop: 24,
+        // marginTop: 24,
     },
 
 });
