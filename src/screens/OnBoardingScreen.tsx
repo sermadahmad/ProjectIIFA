@@ -40,7 +40,7 @@ const OnBoardingScreen = ({ navigation }: OnBoardingScreenProps) => {
         if (step < headings.length - 1) {
             setStep(step + 1);
         } else {
-            navigation.navigate('Login');
+            navigation.replace('Login');
         }
     };
 
