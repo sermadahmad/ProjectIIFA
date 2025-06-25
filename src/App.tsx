@@ -1,11 +1,6 @@
 import React, { useEffect } from "react";
 import BootSplash from "react-native-bootsplash";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import OnboardingScreen from "./screens/OnBoardingScreen";
-import LoginScreen from "./screens/AuthScreen";
-
-const Stack = createNativeStackNavigator();
+import AppNavigator from "./navigation/AppNavigator";
 
 const App = () => {
     useEffect(() => {
@@ -19,14 +14,7 @@ const App = () => {
         });
     }, []);
 
-    return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Onboarding" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-    );
+    return <AppNavigator />;
 };
 
 export default App;

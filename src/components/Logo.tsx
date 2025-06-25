@@ -17,7 +17,7 @@ export default Logo;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 20,
+    padding: 20,
   },
   image: {
     width: 97,

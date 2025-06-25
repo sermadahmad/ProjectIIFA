@@ -8,9 +8,15 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MyInputField from "../components/MyInputField";
 import MySolidButton from "../components/MySolidButton";
+import type { StackNavigationProp } from '@react-navigation/stack';
+
 
 const { width } = Dimensions.get("window");
-const LoginScreen = () => {
+type LoginScreenProps = {
+    navigation: StackNavigationProp<any>;
+
+};
+const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
 
 
     // const heading = "Welcome Back!";
@@ -24,7 +30,7 @@ const LoginScreen = () => {
     const [confirmPassword, setConfirmPassword] = React.useState("");
     const [activeTab, setActiveTab] = React.useState("login");
 
-    const handleLoginPress = () => {
+    const handleLoginTabPress = () => {
         setActiveTab("login");
         setName("");
         setEmail("");
@@ -35,7 +41,7 @@ const LoginScreen = () => {
 
     };
 
-    const handleSignupPress = () => {
+    const handleSignupTabPress = () => {
         setActiveTab("signup");
         setName("");
         setEmail("");
@@ -46,6 +52,13 @@ const LoginScreen = () => {
 
     };
 
+    const handleLoginButtonPress = () => {
+        navigation.navigate("MainTabs");
+    };
+    const handleSignUpButtonPress = () => {
+        navigation.navigate("MainTabs");
+    };
+
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -54,10 +67,10 @@ const LoginScreen = () => {
             <ScrollView style={styles.container}>
                 <Header heading={heading} paragraph={paragraph} />
                 <View style={styles.tabContainer}>
-                    <TouchableOpacity onPress={handleLoginPress}>
+                    <TouchableOpacity onPress={handleLoginTabPress}>
                         <Text style={activeTab === "login" ? styles.activetabBar : styles.inactiveTabBar}>Login</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={handleSignupPress}>
+                    <TouchableOpacity onPress={handleSignupTabPress}>
                         <Text style={activeTab === "signup" ? styles.activetabBar : styles.inactiveTabBar}>Signup</Text>
                     </TouchableOpacity>
                 </View>
@@ -100,7 +113,7 @@ const LoginScreen = () => {
                             <View style={styles.signupbtnContainer}>
                                 <MySolidButton
                                     text={"Signup"}
-                                    handlePress={() => { }}
+                                    handlePress={handleSignUpButtonPress}
                                 />
                             </View>
 
@@ -148,7 +161,7 @@ const LoginScreen = () => {
                             </TouchableOpacity>
 
                             <View style={styles.loginbtnContainer}>
-                                <MySolidButton text={"Login"} handlePress={() => { }} />
+                                <MySolidButton text={"Login"} handlePress={handleLoginButtonPress} />
 
                                 <View style={styles.bysigninginTextContainer}>
                                     <Text style={styles.bysigninginText}>
