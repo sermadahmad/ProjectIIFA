@@ -1,12 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import Logo from './Logo';
+import Logo from '../assets/svgs/logo.svg';
+import OnBoarding1 from '../assets/svgs/onBoarding1.svg';
+import OnBoarding2 from '../assets/svgs/onBoarding2.svg';
+import OnBoarding3 from '../assets/svgs/onBoarding3.svg';
 import MySolidButton from './MySolidButton';
+import { useEffect } from 'react';
+import BootSplash from 'react-native-bootsplash';
 
 type OnBoardingScreenComponentProps = {
     navigation: StackNavigationProp<any>;
-    image: any;
+    // image: any;
     heading: string;
     paragraph: string;
     buttonText: string;
@@ -15,23 +20,36 @@ type OnBoardingScreenComponentProps = {
 };
 
 const OnBoardingScreenComponent: React.FC<OnBoardingScreenComponentProps> = ({
-    image,
+    // image,
     heading,
     paragraph,
     buttonText,
     handlePress,
     step
 }) => {
+      useEffect(() => {
+    const init = async () => {
+      // …do multiple sync or async tasks
+    };
+
+    init().finally(async () => {
+      await BootSplash.hide({ fade: true });
+      console.log("BootSplash has been hidden successfully");
+    });
+  }, []);
     return (
         <ScrollView 
             contentContainerStyle={styles.container}
-            showsVerticalScrollIndicator={true}
-            showsHorizontalScrollIndicator={true}>
+        >
             <View style={styles.logoContainer}>
-                <Logo />
+                <Logo width={100} height={76} />
             </View>
             <View style={styles.onboardingImageContainer}>
-                <Image source={image} style={styles.onboardingImage} />
+                {/* <Image source={image} style={styles.onboardingImage} /> */}
+                {step === 0 && <OnBoarding1 />}
+                {step === 1 && <OnBoarding2 height={350} />}
+                {step === 2 && <OnBoarding3 height={400} />}
+
             </View>
             <View style={styles.linesConainer}>
                 <View style={step === 0 ? styles.activeLine : styles.inactiveLine} />
@@ -68,9 +86,10 @@ const styles = StyleSheet.create({
         // position: 'absolute',
         // bottom: 80,
         marginTop: 30,
+        paddingBottom: 20,
     },
     container: {
-        flex: 1,
+        // flex: 1,
         // justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',

@@ -11,10 +11,22 @@ const Stack = createNativeStackNavigator();
 const AppNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Splash" component={SplashScreen} />
-      <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="MainTabs" component={MainTabs} />
+      <Stack.Screen 
+        name="Splash" 
+        getComponent={() => require('../screens/SplashScreen').default} 
+      />
+      <Stack.Screen 
+        name="Onboarding" 
+        getComponent={() => require('../screens/OnBoardingScreen').default}
+      />
+      <Stack.Screen 
+        name="Login" 
+        getComponent={() => require('../screens/AuthScreen').default}
+      />
+      <Stack.Screen 
+        name="MainTabs" 
+        getComponent={() => require('./MainTabs').default}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );

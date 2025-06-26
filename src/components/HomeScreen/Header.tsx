@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import Logo from '../Logo'
+import Logo from '../../assets/svgs/logo.svg';
 
 const Header = () => {
     return (
         <View style={styles.container}>
             <View style={styles.logoContainer}>
-                <Logo />
+                <Logo width={100} height={70} />
             </View>
             <View style={styles.headingParagraphContainer}>
                 <View style={styles.headingContainer}>
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
         // width: 50,
         // height: 50,
         // backgroundColor: 'red',
+        padding: 20,
     },
     headingParagraphContainer: {
         // marginRight: 20,

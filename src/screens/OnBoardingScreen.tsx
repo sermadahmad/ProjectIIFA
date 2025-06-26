@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Logo from '../components/Logo';
 import MySolidButton from '../components/MySolidButton';
 import type { StackNavigationProp } from '@react-navigation/stack';
@@ -27,35 +27,41 @@ const buttonTexts = [
     "Get Started",
 ];
 
-const images = [
-    require('../assets/onboarding1.png'),
-    require('../assets/onboarding2.png'),
-    require('../assets/onboarding3.png'),
-];
-
 const OnBoardingScreen = ({ navigation }: OnBoardingScreenProps) => {
     const [step, setStep] = useState(0);
+    const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-    const handlePress = () => {
-        if (step < headings.length - 1) {
-            setStep(step + 1);
-        } else {
+    useEffect(() => {
+        intervalRef.current = setInterval(() => {
+            setStep(prev => prev + 1);
+        }, 5000);
+
+        return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (step >= headings.length) {
+            if (intervalRef.current) clearInterval(intervalRef.current);
             navigation.replace('Login');
         }
-    };
+    }, [step, navigation]);
+
+    const handlePress = () => setStep(prev => prev + 1);
+
+    // Prevent out-of-bounds access
+    if (step >= headings.length) return null;
 
     return (
-        // <View>
-            <OnBoardingScreenComponent
-                navigation={navigation}
-                image={images[step]}
-                heading={headings[step]}
-                paragraph={paragraphs[step]}
-                buttonText={buttonTexts[step]}
-                handlePress={handlePress}
-                step={step}
-            />
-        // </View>
+        <OnBoardingScreenComponent
+            navigation={navigation}
+            heading={headings[step]}
+            paragraph={paragraphs[step]}
+            buttonText={buttonTexts[step]}
+            handlePress={handlePress}
+            step={step}
+        />
     );
 };
 

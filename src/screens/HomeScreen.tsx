@@ -5,10 +5,47 @@ import BootSplash from 'react-native-bootsplash';
 import Header from '../components/HomeScreen/Header';
 import { ScrollView } from 'react-native';
 import PostComponent from '../components/HomeScreen/PostComponent';
+import { FlatList } from 'react-native';
 // import { useVideoPlayer, VideoView } from 'expo-video';
 
 
 const posts = [
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
+    {
+        title: "Unlock the Power of AI!",
+        content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
+    },
     {
         title: "Unlock the Power of AI!",
         content: "Ever wondered how to create content that truly resonates? Let AI analyze your style, refine your words, and help you stand out. 🚀✨",
@@ -44,7 +81,7 @@ const HomeScreen = () => {
         });
     }, []);
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.container}>
             <Header />
             <View>
                 <Text style={styles.heading}>What’s new about Post Impact</Text>
@@ -56,16 +93,14 @@ const HomeScreen = () => {
                 <Text style={styles.postsHeading}>Your most popular posts</Text>
                 <Text style={styles.postsParagraph}>Your posts gained 120% more engagement this week!</Text>
             </View>
-            <ScrollView>
-                {posts.map((post, index) => (
-                <PostComponent
-                    key={index}
-                    title={post.title}
-                    content={post.content}
+            <View>
+                <FlatList
+                    data={posts}
+                    renderItem={({ item }) => <PostComponent title={item.title} content={item.content} />}
+                    keyExtractor={(item, index) => index.toString()}
                 />
-            ))}
-            </ScrollView>
-        </ScrollView>
+            </View>
+        </View>
     );
 }
 
