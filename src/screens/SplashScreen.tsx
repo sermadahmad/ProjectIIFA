@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import type { StackNavigationProp } from '@react-navigation/stack';
 import BootSplash from 'react-native-bootsplash';
 import Logo from '../assets/svgs/logo.svg';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type SplashScreenProps = {
     navigation: StackNavigationProp<any>;
@@ -21,9 +22,19 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ navigation }) => {
         });
     }, []);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
+    const checkOnboarding = async () => {
+        const hasSeen = await AsyncStorage.getItem('hasSeenOnboarding');
+        if (hasSeen === 'true') {
+            navigation.replace('Login');
+        } else {
             navigation.replace('Onboarding');
+        }
+    };
+
+    useEffect(() => {
+
+        const timer = setTimeout(() => {
+            checkOnboarding(); // Navigate to the appropriate screen after 2 seconds
         }, 2000); // Navigate after 2 seconds
 
         return () => clearTimeout(timer); // Cleanup the timer on unmount

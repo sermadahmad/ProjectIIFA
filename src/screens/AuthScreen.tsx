@@ -53,10 +53,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({navigation}) => {
     };
 
     const handleLoginButtonPress = () => {
-        navigation.navigate("MainTabs");
+        navigation.navigate("DrawerNavigator");
     };
     const handleSignUpButtonPress = () => {
-        navigation.navigate("MainTabs");
+        navigation.navigate("DrawerNavigator");
     };
 
     return (

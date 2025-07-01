@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Logo from '../assets/svgs/logo.svg';
 import OnBoarding1 from '../assets/svgs/onBoarding1.svg';
@@ -8,6 +8,10 @@ import OnBoarding3 from '../assets/svgs/onBoarding3.svg';
 import MySolidButton from './MySolidButton';
 import { useEffect } from 'react';
 import BootSplash from 'react-native-bootsplash';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+const { width, height } = Dimensions.get('window'); 
 
 type OnBoardingScreenComponentProps = {
     navigation: StackNavigationProp<any>;
@@ -15,31 +19,32 @@ type OnBoardingScreenComponentProps = {
     heading: string;
     paragraph: string;
     buttonText: string;
-    handlePress: () => void;
+    // handlePress: () => void;
     step: number;
 };
 
 const OnBoardingScreenComponent: React.FC<OnBoardingScreenComponentProps> = ({
+    navigation,
     // image,
     heading,
     paragraph,
     buttonText,
-    handlePress,
+    // handlePress,
     step
 }) => {
-      useEffect(() => {
-    const init = async () => {
-      // …do multiple sync or async tasks
-    };
+    useEffect(() => {
+        const init = async () => {
+            // …do multiple sync or async tasks
+        };
 
-    init().finally(async () => {
-      await BootSplash.hide({ fade: true });
-      console.log("BootSplash has been hidden successfully");
-    });
-  }, []);
+        init().finally(async () => {
+            await BootSplash.hide({ fade: true });
+            console.log("BootSplash has been hidden successfully");
+        });
+    }, []);
     return (
-        <ScrollView 
-            contentContainerStyle={styles.container}
+        <View
+            style={styles.container}
         >
             <View style={styles.logoContainer}>
                 <Logo width={100} height={76} />
@@ -48,7 +53,7 @@ const OnBoardingScreenComponent: React.FC<OnBoardingScreenComponentProps> = ({
                 {/* <Image source={image} style={styles.onboardingImage} /> */}
                 {step === 0 && <OnBoarding1 />}
                 {step === 1 && <OnBoarding2 height={350} />}
-                {step === 2 && <OnBoarding3 height={400} />}
+                {step === 2 && <OnBoarding3 height={370} />}
 
             </View>
             <View style={styles.linesConainer}>
@@ -63,9 +68,12 @@ const OnBoardingScreenComponent: React.FC<OnBoardingScreenComponentProps> = ({
                 <Text style={styles.paragraph}>{paragraph}</Text>
             </View>
             <View style={styles.btnContainer}>
-                <MySolidButton text={buttonText} handlePress={handlePress} />
+                <MySolidButton text={buttonText} handlePress={() => {
+                    AsyncStorage.setItem('hasSeenOnboarding', 'true');
+                    navigation.navigate('Login');
+                }} />
             </View>
-        </ScrollView>
+        </View>
     );
 };
 
@@ -80,16 +88,20 @@ const styles = StyleSheet.create({
         marginVertical: 25,
     },
     logoContainer: {
-       paddingTop:40,
+        paddingTop: 40,
     },
     btnContainer: {
         // position: 'absolute',
         // bottom: 80,
-        marginTop: 30,
-        paddingBottom: 20,
+        // marginTop: 30,
+        // padding: 20,
+        // width: width,
+
     },
     container: {
-        // flex: 1,
+        flex: 1,
+        height: height,
+        width: width,
         // justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',

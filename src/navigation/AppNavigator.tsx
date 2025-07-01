@@ -24,8 +24,8 @@ const AppNavigator = () => (
         getComponent={() => require('../screens/AuthScreen').default}
       />
       <Stack.Screen 
-        name="MainTabs" 
-        getComponent={() => require('./MainTabs').default}
+        name="DrawerNavigator" 
+        getComponent={() => require('./DrawerNavigator').default}
       />
     </Stack.Navigator>
   </NavigationContainer>

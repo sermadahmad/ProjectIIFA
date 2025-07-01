@@ -1,5 +1,7 @@
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
 import React from 'react';
+
+const { width } = Dimensions.get('window');
 
 type MySolidButtonProps = {
     text: string;
@@ -8,7 +10,7 @@ type MySolidButtonProps = {
 
 const MySolidButton: React.FC<MySolidButtonProps> = ({ text, handlePress }) => {
     return (
-        <View>
+        <View style={styles.container}>
             <TouchableOpacity onPress={handlePress}>
                 <Text style={styles.btnText}>
                     {text}
@@ -21,7 +23,7 @@ const MySolidButton: React.FC<MySolidButtonProps> = ({ text, handlePress }) => {
 export default MySolidButton;
 
 const styles = StyleSheet.create({
-        btnText: {
+    btnText: {
         fontFamily: 'Montserrat',
         fontWeight: '700',
         fontSize: 16,
@@ -30,10 +32,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#ffffff',
         backgroundColor: '#0070C0',
-        width: 398,
+        // width: 398,
+        // width: '100%',
         padding: 16,
         borderRadius: 10,
         // marginTop: 24,
     },
+    container: {
+        width: width,
+        padding: 20,
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        // backgroundColor: '#0070C0',
+        // borderColor: '#0070C0',
+        // borderWidth: 1,
+        // borderRadius: 10,
+        // height: 50,
+    }
 
 });
