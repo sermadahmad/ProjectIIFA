@@ -1,24 +1,13 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { StyleSheet, Text, View } from 'react-native'
+import React from 'react'
+import LoginScreen from './screens/LoginScreen'
 
 const App = () => {
-    return (
-        <View style={styles.container}>
-            <Text style={styles.text}>Hello, World!</Text>
-        </View>
-    );
-};
+  return (
+      <LoginScreen />
+  )
+}
 
 export default App;
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    text: {
-        fontSize: 20,
-        color: "#333",
-    },
-});
+const styles = StyleSheet.create({});
