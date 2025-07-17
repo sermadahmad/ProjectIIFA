@@ -1,12 +1,23 @@
-import logo from '../assets/icons/logo.svg'
-import flag from '../assets/icons/flag.svg'
-import dropdown from '../assets/icons/dropdown.svg'
-import eye from '../assets/icons/eye.svg'
+import Logo from '../assets/icons/Logo.svg'
+import Flag from '../assets/icons/Flag.svg'
+import DropDown from '../assets/icons/DropDown.svg'
+import Eye from '../assets/icons/Eye.svg'
 
+import OBSLogo from '../assets/icons/OnBoardingScreen/OBSLogo.svg'
+import OBSImage from '../assets/icons/OnBoardingScreen/OBSImage.svg'
+import OBSBackground from '../assets/icons/OnBoardingScreen/OBSBackground.svg'
+
+import OTPImage from '../assets/icons/OTPScreen/OTPImage.svg'
 
 export const ICONS = {
-    logo,
-    flag,
-    dropdown,
-    eye
+    Logo,
+    Flag,
+    DropDown,
+    Eye,
+
+    OBSLogo,
+    OBSImage,
+    OBSBackground,
+
+    OTPImage,
 };

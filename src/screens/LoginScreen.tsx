@@ -1,8 +1,10 @@
-import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity, Dimensions } from 'react-native';
 import React from 'react';
 import { ICONS } from '../constants/icons';
 import { SafeAreaView } from 'react-native-safe-area-context'
+import MyButton from '../components/MyButton';
 
+const { width, height } = Dimensions.get('window');
 
 const LoginScreen = () => {
     return (
@@ -10,7 +12,7 @@ const LoginScreen = () => {
             <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
             <View style={styles.mainContainer}>
                 <View style={styles.logoContainer}>
-                    <ICONS.logo />
+                    <ICONS.Logo height={height * 0.09}/>
                 </View>
                 <View style={styles.headingContainer}>
                     <Text style={styles.loginHeading}>LOGIN INTO YOUR</Text>
@@ -22,9 +24,9 @@ const LoginScreen = () => {
                     </Text>
                     <View style={styles.phoneTextInput}>
                         <View style={styles.flagDropdown}>
-                            <ICONS.flag />
+                            <ICONS.Flag />
                             <Text style={styles.countryCodeText}>+44</Text>
-                            <ICONS.dropdown />
+                            <ICONS.DropDown />
                             <View style={styles.divider} ></View>
                         </View>
                         <View style={styles.textInputContainer}>
@@ -38,7 +40,7 @@ const LoginScreen = () => {
                     <View style={styles.phoneTextInput}>
                         <View style={styles.passwordContainer}>
                             <Text style={styles.password}>*********</Text>
-                            <ICONS.eye />
+                            <ICONS.Eye />
                         </View>
                     </View>
                     <Text style={styles.accountTypeText}>ACCOUNT TYPE</Text>
@@ -50,10 +52,13 @@ const LoginScreen = () => {
                     </View>
                     <View><Text style={styles.forgotPasswordText}>FORGOT PASSWORD?</Text></View>
                 </View>
-                <View style={{ width: '100%', alignItems: 'center', marginTop: 50 }}>
-                    <TouchableOpacity style={styles.signInBtnContainer}>
-                        <Text style={styles.signInText}>SIGN IN</Text>
-                    </TouchableOpacity>
+                <View style={{ width: '90%', marginTop: 50 }}>
+                    <MyButton
+                        text={'SIGN IN'}
+                        backgroundColor='#FF7F27'
+                        color='#FFFFFF'
+                        onPress={() => console.log("Sign in pressed")}
+                    />
                 </View>
                 <Text style={styles.organization}>Do you run an organization?</Text>
                 <Text style={styles.signupAdmin}>Sign up as Admin</Text>
@@ -257,7 +262,7 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         alignItems: 'center',
-        // backgroundColor: '#d69999ff'
+        // backgroundColor: '#481616ff'
     },
     logoContainer: {
         paddingTop: 20,
