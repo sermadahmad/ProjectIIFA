@@ -3,10 +3,14 @@ import React from 'react'
 import { ICONS } from '../constants/icons'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MyButton from '../components/MyButton';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackNavigationParamList } from '../navigation/types';
 
 const { width, height } = Dimensions.get('window');
 
-const OnBoardingScreen = () => {
+type OnBoardingScreenProps = NativeStackScreenProps<StackNavigationParamList, 'OnBoardingScreen'>;
+
+const OnBoardingScreen: React.FC<OnBoardingScreenProps> = ({navigation}) => {
   return (
     <SafeAreaView style={{ flex: 1, padding: 20 }}>
       <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
@@ -31,7 +35,9 @@ const OnBoardingScreen = () => {
         <View style={styles.btnContainer}>
           <MyButton
             text='GET STARTED'
-            onPress={() => console.log("GET STARTED")}
+            onPress={() => {
+              navigation.replace('RegisterScreen')
+            }}
             color='rgba(255, 255, 255, 1)'
             backgroundColor='rgba(255, 127, 39, 1)'
           />

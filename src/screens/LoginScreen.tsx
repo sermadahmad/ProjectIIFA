@@ -1,73 +1,125 @@
-import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity, Dimensions } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View, StatusBar, TextInput, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
+import React, { useState } from 'react';
 import { ICONS } from '../constants/icons';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import MyButton from '../components/MyButton';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackNavigationParamList } from '../navigation/types';
+import Icon from 'react-native-vector-icons/Ionicons';
+import CountryPicker, { Country, CountryCode } from 'react-native-country-picker-modal';
 
 const { width, height } = Dimensions.get('window');
 
-const LoginScreen = () => {
+type LoginScreenProps = NativeStackScreenProps<StackNavigationParamList, 'LoginScreen'>;
+
+const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
+// const LoginScreen = () => {
+    const [isSecure, setIsSecure] = useState(true);
+    const [showPicker, setShowPicker] = useState(false);
+    const [countryCode, setCountryCode] = useState<CountryCode>("GB");
+    const [callingCode, setCallingCode] = useState("44");
+    const [phoneNumber, setPhoneNumber] = useState("");
+
+    const onSelect = (country: Country) => {
+        // console.log(country);
+        setCountryCode(country.cca2);
+        setCallingCode(country.callingCode[0]);
+        setShowPicker(false);
+    };
+
     return (
-        <SafeAreaView style={{ flex: 1, padding: 20 }}>
+        <SafeAreaView style={{ flex: 1, padding: 20, backgroundColor: 'white' }}>
             <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
-            <View style={styles.mainContainer}>
-                <View style={styles.logoContainer}>
-                    <ICONS.Logo height={height * 0.09}/>
-                </View>
-                <View style={styles.headingContainer}>
-                    <Text style={styles.loginHeading}>LOGIN INTO YOUR</Text>
-                    <Text style={styles.subHeading}>PAYMENT’S MANAGER</Text>
-                </View>
-                <View style={styles.inputsContainer}>
-                    <Text style={styles.phoneText}>
-                        PHONE NUMBER
-                    </Text>
-                    <View style={styles.phoneTextInput}>
-                        <View style={styles.flagDropdown}>
-                            <ICONS.Flag />
-                            <Text style={styles.countryCodeText}>+44</Text>
-                            <ICONS.DropDown />
-                            <View style={styles.divider} ></View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+                <View style={styles.mainContainer}>
+                    <View style={styles.logoContainer}>
+                        <ICONS.Logo height={height * 0.09} />
+                    </View>
+                    <View style={styles.headingContainer}>
+                        <Text style={styles.loginHeading}>LOGIN INTO YOUR</Text>
+                        <Text style={styles.subHeading}>PAYMENT’S MANAGER</Text>
+                    </View>
+                    <View style={styles.inputsContainer}>
+                        <Text style={styles.phoneText}>
+                            PHONE NUMBER
+                        </Text>
+                        <View style={styles.phoneTextInput}>
+                            <View style={styles.flagDropdown}>
+                                <TouchableOpacity 
+                                    style={{flexDirection:'row', alignItems: 'center'}}
+                                    onPress={() => setShowPicker(true)}
+                                >
+                                    <CountryPicker
+                                        withAlphaFilter
+                                        withCallingCode
+                                        withCloseButton
+                                        withFilter
+                                        withFlag
+                                        visible={showPicker}
+                                        countryCode={countryCode}
+                                        onSelect={onSelect}
+                                        onClose={() => setShowPicker(false)}
+                                    />
+                                    <Text style={styles.countryCodeText}>+{callingCode}</Text>
+                                    <ICONS.DropDown />
+                                </TouchableOpacity>
+                                <View style={styles.divider} ></View>
+                            </View>
+                            <View style={styles.textInputContainer}>
+                                <TextInput
+                                    placeholder='Enter phone number'
+                                    style={styles.textInput}
+                                    placeholderTextColor={'rgba(196, 196, 196, 1)'}
+                                    keyboardType='numeric'
+                                    value={phoneNumber}
+                                    onChangeText={setPhoneNumber}
+                                />
+                            </View>
                         </View>
-                        <View style={styles.textInputContainer}>
-                            <TextInput
-                                placeholder='Enter phone number'
-                                style={styles.textInput}
-                            />
+                        <Text style={styles.phoneText}>create your password</Text>
+                        <View style={styles.phoneTextInput}>
+                            <View style={styles.passwordContainer}>
+                                <TextInput
+                                    placeholder='********'
+                                    style={styles.textInput}
+                                    placeholderTextColor={'rgba(196, 196, 196, 1)'}
+                                    secureTextEntry={isSecure}
+                                />
+                                <TouchableOpacity onPress={() => {
+                                    setIsSecure(!isSecure);
+                                }}>
+                                    <Icon name={isSecure ? 'eye-off' : 'eye'} size={25} color={'rgba(0, 0, 0, 0.35)'} />
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                    <Text style={styles.phoneText}>enter your password</Text>
-                    <View style={styles.phoneTextInput}>
-                        <View style={styles.passwordContainer}>
-                            <Text style={styles.password}>*********</Text>
-                            <ICONS.Eye />
+                    <View style={styles.btnforgotContainer}>
+                        <View style={styles.btnsContainer}>
+                            <TouchableOpacity style={styles.btn1}><Text style={styles.memberText}>MEMBER</Text></TouchableOpacity>
+                            <TouchableOpacity style={styles.btn2}><Text style={styles.adminText}>ADMIN</Text></TouchableOpacity>
                         </View>
+                        <View><Text style={styles.forgotPasswordText}>FORGOT PASSWORD?</Text></View>
                     </View>
-                    <Text style={styles.accountTypeText}>ACCOUNT TYPE</Text>
-                </View>
-                <View style={styles.btnforgotContainer}>
-                    <View style={styles.btnsContainer}>
-                        <TouchableOpacity style={styles.btn1}><Text style={styles.memberText}>MEMBER</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.btn2}><Text style={styles.adminText}>ADMIN</Text></TouchableOpacity>
+                    <View style={{ width: '90%', marginTop: 50 }}>
+                        <MyButton
+                            text={'SIGN IN'}
+                            backgroundColor='#FF7F27'
+                            color='#FFFFFF'
+                            onPress={() => {
+                                navigation.navigate('OTPScreen')
+                            }}
+                        />
                     </View>
-                    <View><Text style={styles.forgotPasswordText}>FORGOT PASSWORD?</Text></View>
+                    <Text style={styles.organization}>Do you run an organization?</Text>
+                    <Text style={styles.signupAdmin}>Sign up as Admin</Text>
+
                 </View>
-                <View style={{ width: '90%', marginTop: 50 }}>
-                    <MyButton
-                        text={'SIGN IN'}
-                        backgroundColor='#FF7F27'
-                        color='#FFFFFF'
-                        onPress={() => console.log("Sign in pressed")}
-                    />
-                </View>
-                <Text style={styles.organization}>Do you run an organization?</Text>
-                <Text style={styles.signupAdmin}>Sign up as Admin</Text>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     )
-}
+};
 
-export default LoginScreen
+export default LoginScreen;
 
 const styles = StyleSheet.create({
     signupAdmin: {
@@ -79,7 +131,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         color: 'rgba(29, 40, 58)',
         paddingVertical: 1,
-
     },
     organization: {
         fontFamily: 'roboto',
@@ -91,7 +142,6 @@ const styles = StyleSheet.create({
         color: '#1D283A78',
         marginTop: 10,
         paddingVertical: 1,
-
     },
     signInText: {
         fontFamily: 'roboto',
@@ -102,7 +152,6 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         color: '#FFFFFF',
         textAlign: 'center',
-
     },
     signInBtnContainer: {
         width: '85%',
@@ -110,14 +159,11 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         backgroundColor: '#FF7F27',
         borderRadius: 13,
-        // justifyContent: 'center',
     },
     btnforgotContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        // flex: 1,
-        // backgroundColor: '#af8888ff',
         width: '100%',
         marginTop: 10,
     },
@@ -169,8 +215,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.4,
         shadowRadius: 5,
-
-
     },
     accountTypeText: {
         fontFamily: 'roboto',
@@ -182,14 +226,6 @@ const styles = StyleSheet.create({
         color: '#FF7F27',
         textTransform: 'uppercase',
         marginTop: 5,
-
-    },
-    passwordContainer: {
-        flexDirection: 'row',
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center'
-
     },
     password: {
         fontFamily: 'roboto',
@@ -199,62 +235,6 @@ const styles = StyleSheet.create({
         lineHeight: 15,
         letterSpacing: 0,
         color: '#C4C4C4',
-
-    },
-    inputsContainer: {
-        width: '100%',
-        marginTop: 70,
-    },
-    textInput: {
-        fontFamily: 'roboto',
-        fontWeight: '400',
-        fontStyle: 'normal',
-        fontSize: 15,
-        lineHeight: 15,
-        letterSpacing: 0,
-        // backgroundColor: '#a17c7cff',
-        // flex: 1,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // textAlign: 'center',
-        // height: '100%'
-
-    },
-    textInputContainer: {
-        // backgroundColor: '#ab8f8fff',
-        flex: 1,
-        paddingHorizontal: 10,
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // height: '100%',
-    },
-    divider: {
-        width: 2,
-        height: '80%',
-        backgroundColor: '#DDDCDC',
-        // padding: 2,
-    },
-    countryCodeText: {
-        fontFamily: 'roboto',
-        fontWeight: '400',
-        fontStyle: 'normal',
-        fontSize: 15,
-        lineHeight: 15,
-        letterSpacing: 0,
-        color: '#263238',
-
-    },
-    phoneText: {
-        fontFamily: 'Roboto',
-        fontWeight: 400,
-        fontStyle: 'normal',
-        fontSize: 12,
-        // leading-trim: NONE;
-        lineHeight: 12,
-        letterSpacing: 0,
-        textTransform: 'uppercase',
-        color: '#FF7F27',
-
     },
     headingContainer: {
         alignItems: 'center',
@@ -262,13 +242,10 @@ const styles = StyleSheet.create({
     },
     mainContainer: {
         alignItems: 'center',
-        // backgroundColor: '#481616ff'
     },
     logoContainer: {
         paddingTop: 20,
         paddingBottom: 30,
-        // backgroundColor: '#d69999ff'
-
     },
     loginHeading: {
         fontFamily: 'roboto',
@@ -287,29 +264,73 @@ const styles = StyleSheet.create({
         lineHeight: 18,
         letterSpacing: 0,
         color: '#1D283A',
-
+    },
+    inputsContainer: {
+        width: '100%',
+        marginTop: 70,
+    },
+    phoneText: {
+        fontFamily: 'Roboto',
+        fontWeight: 400,
+        fontStyle: 'normal',
+        fontSize: 12,
+        lineHeight: 12,
+        letterSpacing: 0,
+        textTransform: 'uppercase',
+        color: '#FF7F27',
     },
     phoneTextInput: {
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#DDDCDC',
-        // width: '100%',
         height: 47,
-        // backgroundColor: '#bbaaaaff',
         alignItems: 'center',
         paddingHorizontal: 10,
-        paddingVertical: 4,
         flexDirection: 'row',
         marginTop: 5,
         marginBottom: 10,
-
     },
     flagDropdown: {
         flexDirection: 'row',
-        // backgroundColor: '#7a6d6dff',
         alignItems: 'center',
         gap: 10,
         height: '100%',
-
-    }
+    },
+    countryCodeText: {
+        fontFamily: 'roboto',
+        fontWeight: '400',
+        fontStyle: 'normal',
+        fontSize: 15,
+        lineHeight: 15,
+        letterSpacing: 0,
+        color: '#263238',
+        marginRight: 10,
+    },
+    divider: {
+        width: 2,
+        height: '80%',
+        backgroundColor: '#DDDCDC',
+    },
+    textInputContainer: {
+        flex: 1,
+        paddingHorizontal: 10,
+        justifyContent: 'center',
+        height: '100%',
+    },
+    passwordContainer: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+        height: '100%',
+    },
+    textInput: {
+        fontWeight: '400',
+        fontStyle: 'normal',
+        fontSize: 15,
+        lineHeight: 15,
+        letterSpacing: 0,
+        color: 'rgba(196, 196, 196, 1)',
+        flex: 1,
+        height: '100%',
+    },
 });
