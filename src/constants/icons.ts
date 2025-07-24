@@ -19,6 +19,9 @@ import HSSettings from '../assets/icons/HomeScreen/HSSettings.svg'
 import HSStar from '../assets/icons/HomeScreen/HSStar.svg'
 import HSGirl from '../assets/icons/HomeScreen/HSGirl.svg'
 
+import ACSHome from '../assets/icons/AllChatsScreen/ACSHome.svg'
+import ACSSearch from '../assets/icons/AllChatsScreen/ACSSearch.svg'
+
 export const ICONS = {
     Logo,
     Flag,
@@ -40,4 +43,7 @@ export const ICONS = {
     HSHome, 
     HSSettings,
     HSGirl,
+
+    ACSHome,
+    ACSSearch,
 };

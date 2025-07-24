@@ -127,7 +127,7 @@ const data = [
 
 ];
 
-const HomeScreen: React.FC<HomeScreenProps> = ({navigation}) => {
+const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
             <StatusBar barStyle={'dark-content'} backgroundColor={'white'} />
@@ -306,13 +306,13 @@ const styles = StyleSheet.create({
 
 
     },
-    nameText:{
+    nameText: {
         fontWeight: '700',
         fontSize: 18,
         letterSpacing: 0,
         color: 'rgba(51, 61, 65, 1)'
     },
-    phoneText:{
+    phoneText: {
         fontWeight: '500',
         fontSize: 14,
         letterSpacing: 0,
