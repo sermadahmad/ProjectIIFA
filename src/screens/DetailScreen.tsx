@@ -1,22 +1,14 @@
 import React, { useState } from "react";
 import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import MyToast from "../components/MyToast";
+import { useDispatch } from "react-redux";
+import { addItemToCart } from "../redux/cartSlice";
+import type { Product } from "../redux/types"; // Adjust the import based on your project structure
 
 type DetailScreenProps = {
     route: {
         params: {
-            card: {
-                imgsrc: string;
-                title: string;
-                price: number;
-                discount: number;
-                coinsSave: number;
-                rating: number;
-                reviewCount: number;
-                sold: number;
-                freeDelivery: boolean;
-                coins: boolean;
-            };
+            card: Product;
         };
     };
 };
@@ -24,30 +16,31 @@ type DetailScreenProps = {
 const DetailScreen: React.FC<DetailScreenProps> = ({ route }) => {
     const [toastVisible, setToastVisible] = useState(false);
     const [toastText, setToastText] = useState('');
+    const dispatch = useDispatch();
 
     const showToast = (msg: string) => {
         setToastText(msg);
         setToastVisible(true);
     };
+    const handleAddToCart = () => {
+        showToast("Added to cart!");
+        dispatch(addItemToCart(route.params.card));
+    };
     // Destructure card data from route.params
     const {
-        imgsrc,
+        image,
         title,
         price,
-        discount,
-        coinsSave,
+        description,
+        category,
         rating,
-        reviewCount,
-        sold,
-        freeDelivery,
-        coins,
     } = route.params.card; // Destructuring the card object passed from the previous screen
 
     return (
         <View style={{ flex: 1 }}>
             <ScrollView style={styles.container}>
                 {/* Image Section */}
-                <Image source={{ uri: imgsrc }} style={styles.image} />
+                <Image source={{ uri: image }} style={styles.image} />
 
                 {/* Product Title */}
                 <Text style={styles.title}>{title}</Text>
@@ -55,36 +48,45 @@ const DetailScreen: React.FC<DetailScreenProps> = ({ route }) => {
                 {/* Price and Discount */}
                 <View style={styles.priceContainer}>
                     <Text style={styles.price}>${price}</Text>
-                    {discount > 0 && <Text style={styles.discount}>-{discount}%</Text>}
+                    {/* {discount > 0 && <Text style={styles.discount}>-{discount}%</Text>} */}
                 </View>
 
                 {/* Coins Saving */}
-                {coinsSave > 0 && (
+                {/* {coinsSave > 0 && (
                     <Text style={styles.coins}>Save ${coinsSave} with coins</Text>
-                )}
+                )} */}
+
+                {/* Product Description */}
+                <Text style={{ marginHorizontal: 15, fontSize: 16, color: "#333" }}>
+                    {description}
+                </Text>
+
+                {/* Product Category */}
+                <Text style={{ marginHorizontal: 15, fontSize: 16, color: "#666", marginTop: 10, marginBottom: 10 }}>
+                    Category: {category}    
+                </Text>
 
                 {/* Rating and Reviews */}
                 <View style={styles.ratingContainer}>
                     <Text style={styles.rating}>
-                        Rating: {rating} ({reviewCount} reviews)
+                        Rating: {rating.rate} ({rating.count} reviews)
                     </Text>
                 </View>
 
                 {/* Sold Count */}
-                <Text style={styles.sold}>Sold: {sold}</Text>
+                {/* <Text style={styles.sold}>Sold: {sold}</Text> */}
 
                 {/* Delivery and Coins */}
-                <View style={styles.deliveryContainer}>
+                {/* <View style={styles.deliveryContainer}>
                     {freeDelivery && <Text style={styles.freeDelivery}>Free Delivery</Text>}
                     {coins && (
                         <Text style={styles.coinsText}>Earn coins with this purchase</Text>
                     )}
-                </View>
+                </View> */}
                 <View>
                     <TouchableOpacity
                         onPress={() => {
-                            showToast("Added to cart!");
-                            // Here you can also add logic to actually add the item to the cart
+                            handleAddToCart();
                         }}
                         style={{
                             backgroundColor: "#6d5b89ff",
@@ -122,8 +124,8 @@ const styles = StyleSheet.create({
     },
     image: {
         width: "100%",
-        height: 300,
-        resizeMode: "cover",
+        height: 350,
+        resizeMode: 'contain',
     },
     title: {
         fontSize: 22,

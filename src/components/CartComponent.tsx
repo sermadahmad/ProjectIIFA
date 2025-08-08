@@ -1,31 +1,18 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
 import FontAwesome from '@react-native-vector-icons/fontawesome';
-import { useDispatch, UseDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { removeItemFromCart, decrementItemQuantity, incrementItemQuantity } from '../redux/cartSlice';
-type CartComponentProps = {
-    product: {
-        id: number;
-        imgsrc: string;
-        freeDelivery: boolean;
-        coins: boolean;
-        title: string;
-        price: number;
-        discount: number;
-        coinsSave: number;
-        rating: number;
-        reviewCount: number;
-        sold: number;
-        quantity: number;
-    };
-};
+import type { CartComponentProps } from '../redux/cartSlice';
 
 
-const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
+
+
+const CartComponent: React.FC<CartComponentProps> = ({...product}) => {
     const dispatch = useDispatch();
     // destructure product properties
     const {
-        imgsrc,
+        image,
         title,
         price,
         quantity,
@@ -39,7 +26,7 @@ const CartComponent: React.FC<CartComponentProps> = ({ product }) => {
     return (
         <View style={styles.container}>
             <Image
-                source={{ uri: imgsrc }}
+                source={{ uri: image }}
                 style={styles.image}
             />
             <View style={styles.infoContainer}>

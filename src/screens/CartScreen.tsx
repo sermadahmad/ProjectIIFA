@@ -15,10 +15,10 @@ const CartScreen = () => {
                 <Text style={styles.headerText}>Items in Cart: {totalQuantity}</Text>
             </View>
             <FlatList
-                data={items} // Adjust the slice as needed
+                data={items}
                 renderItem={({ item }) => (
                     <CartComponent
-                        product={item}
+                        {...item}
                     />
                 )}
                 keyExtractor={(item) => item.id.toString()}

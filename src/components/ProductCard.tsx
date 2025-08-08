@@ -6,38 +6,31 @@ import {
     ImageBackground,
     Pressable,
     TouchableOpacity,
+    Dimensions,
 } from "react-native";
 import FontAwesome from "@react-native-vector-icons/fontawesome";
 import { useDispatch } from "react-redux";
 import { addItemToCart } from "../redux/cartSlice";
 // import MyToast from "./MyToast";
+import type { Product } from "../redux//types"; // Adjust the import based on your project structure
 
-function formatNumberToText(number: number): string {
-    if (number >= 1e9) {
-        return (number / 1e9).toFixed(1).replace(/\.0$/, "") + "B"; // Billion
-    } else if (number >= 1e6) {
-        return (number / 1e6).toFixed(1).replace(/\.0$/, "") + "M"; // Million
-    } else if (number >= 1e3) {
-        return (number / 1e3).toFixed(1).replace(/\.0$/, "") + "k"; // Thousand
-    } else {
-        return number.toString(); // Less than 1k
-    }
-}
+// function formatNumberToText(number: number): string {
+//     if (number >= 1e9) {
+//         return (number / 1e9).toFixed(1).replace(/\.0$/, "") + "B"; // Billion
+//     } else if (number >= 1e6) {
+//         return (number / 1e6).toFixed(1).replace(/\.0$/, "") + "M"; // Million
+//     } else if (number >= 1e3) {
+//         return (number / 1e3).toFixed(1).replace(/\.0$/, "") + "k"; // Thousand
+//     } else {
+//         return number.toString(); // Less than 1k
+//     }
+// }
+
+const { width } = Dimensions.get("window");
+const cardWidth = width / 2 - 20; // Adjusted for two cards per
 
 type ProductCardProps = {
-    card: {
-        id: number;
-        imgsrc: string;
-        freeDelivery: boolean;
-        coins: boolean;
-        title: string;
-        price: number;
-        discount: number;
-        coinsSave?: number;
-        rating: number;
-        reviewCount: number;
-        sold: number;
-    };
+    card: Product;
     navigation: any; // Adjust type as needed
     showToast?: (msg: string) => void;
 };
@@ -56,15 +49,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ card, navigation, showToast }
             onPress={() => navigation.navigate("DetailScreen", { card })}
         >
             <View style={styles.imgBox}>
-                <ImageBackground source={{ uri: card.imgsrc }} style={styles.img}>
+                <ImageBackground source={{ uri: card.image }} style={styles.img}>
                     <View style={styles.labelsBox}>
                         <View
                             style={[
                                 styles.deliveryBox,
-                                !card.coins && styles.noCoinsDeliveryBox,
+                                // !card.coins && styles.noCoinsDeliveryBox,
                             ]}
                         >
-                            {card.freeDelivery && (
+                            {/* {card.freeDelivery && (
                                 <>
                                     <FontAwesome
                                         name="bus"
@@ -74,11 +67,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ card, navigation, showToast }
                                     />
                                     <Text style={styles.delivery}>FREE DELIVERY</Text>
                                 </>
-                            )}
+                            )} */}
                         </View>
 
                         <View style={styles.coinsBox}>
-                            {card.coins && (
+                            {/* {card.coins && (
                                 <>
                                     <FontAwesome
                                         name="bitcoin"
@@ -88,7 +81,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ card, navigation, showToast }
                                     />
                                     <Text style={styles.coins}>COINS</Text>
                                 </>
-                            )}
+                            )} */}
                         </View>
                     </View>
                 </ImageBackground>
@@ -104,20 +97,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ card, navigation, showToast }
                         <Text style={styles.price}>Rs.{card.price}</Text>
                     </View>
                     <View>
-                        <Text style={styles.discount}>-{card.discount}%</Text>
+                        {/* <Text style={styles.discount}>-{card.discount}%</Text> */}
                     </View>
                 </View>
-                {card.coins && (
+                {/* {card.coins && (
                     <View>
                         <Text style={styles.coinsSave}>Coins Save Rs.{card.coinsSave}</Text>
                     </View>
-                )}
+                )} */}
                 <View>
                     <View style={styles.ratingBox}>
                         <FontAwesome name="star" size={10} color="orange" />
                         <Text style={styles.rating}>
-                            {card.rating} ({card.reviewCount}) |{" "}
-                            {formatNumberToText(card.sold)} sold
+                            {card.rating.rate} ({card.rating.count}) |{" "}
+                            {/* {formatNumberToText(card.sold)} sold */}
                         </Text>
                     </View>
                 </View>
@@ -219,16 +212,17 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     card: {
-        width: 150,
+        width: cardWidth,
         backgroundColor: "white",
         borderRadius: 10,
         elevation: 5,
         margin: 10,
-        height: 350,
+        // height: 350,
     },
     img: {
-        width: 150,
-        height: 150,
+        width: 140,
+        height: 200,
+        resizeMode:"contain",
     },
     imgBox: {
         overflow: "hidden",

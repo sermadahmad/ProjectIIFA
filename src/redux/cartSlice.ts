@@ -1,19 +1,9 @@
 
 import { createSlice } from "@reduxjs/toolkit";
+import { Product } from "./types"; 
 
 // Define a type for cart items
-type CartItem = {
-    id: number;
-    imgsrc: string;
-    freeDelivery: boolean;
-    coins: boolean;
-    title: string;
-    price: number;
-    discount: number;
-    coinsSave: number;
-    rating: number;
-    reviewCount: number;
-    sold: number;
+type CartItem = Product & {
     quantity: number;
 };
 
@@ -34,7 +24,8 @@ const cartSlice = createSlice({
                 state.items.push({ ...product, quantity: 1 });
             }
             state.totalQuantity += 1;
-            state.totalPrice += product.price;
+            state.totalPrice += Number(product.price);
+            state.totalPrice = Number(state.totalPrice.toFixed(2));
         },
         // Remove the item from cart completely
         removeItemFromCart(state, action) {
@@ -43,7 +34,8 @@ const cartSlice = createSlice({
             if (!existingItem) return;
             state.items = state.items.filter(item => item.id !== productId);
             state.totalQuantity -= existingItem.quantity;
-            state.totalPrice -= existingItem.price * existingItem.quantity;
+            state.totalPrice -= Number(existingItem.price) * existingItem.quantity;
+            state.totalPrice = Number(state.totalPrice.toFixed(2));
         },
 
         // Decrement the quantity of an item by 1
@@ -53,7 +45,8 @@ const cartSlice = createSlice({
             if (!existingItem || existingItem.quantity <= 1) return;
             existingItem.quantity -= 1;
             state.totalQuantity -= 1;
-            state.totalPrice -= existingItem.price;
+            state.totalPrice -= Number(existingItem.price);
+            state.totalPrice = Number(state.totalPrice.toFixed(2));
         },
         incrementItemQuantity(state, action) {
             const productId = action.payload;
@@ -61,7 +54,8 @@ const cartSlice = createSlice({
             if (!existingItem) return;
             existingItem.quantity += 1;
             state.totalQuantity += 1;
-            state.totalPrice += existingItem.price;
+            state.totalPrice += Number(existingItem.price);
+            state.totalPrice = Number(state.totalPrice.toFixed(2));
         },
         clearCart(state) {
 
@@ -77,3 +71,5 @@ export const {
     incrementItemQuantity
 } = cartSlice.actions;
 export default cartSlice.reducer;   
+export type { CartItem };
+export type { CartItem as CartComponentProps }; // Exporting for use in CartComponent
