@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const SettingsScreen = () => (
   <View style={styles.container}>
-    <Text>Profile Screen</Text>
+    <Text>Settings Screen</Text>
   </View>
 );
 

@@ -6,6 +6,7 @@ import Header from '../components/HomeScreen/Header';
 import { ScrollView } from 'react-native';
 import PostComponent from '../components/HomeScreen/PostComponent';
 import { FlatList } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 // import { useVideoPlayer, VideoView } from 'expo-video';
 
 
@@ -81,26 +82,26 @@ const HomeScreen = () => {
         });
     }, []);
     return (
-        <View style={styles.container}>
-            <Header />
-            <View>
-                <Text style={styles.heading}>What’s new about Post Impact</Text>
-            </View>
-            <View style={styles.videoContainer}>
+            <View style={styles.container}>
+                <Header />
+                <View>
+                    <Text style={styles.heading}>What’s new about Post Impact</Text>
+                </View>
+                <View style={styles.videoContainer}>
 
+                </View>
+                <View style={styles.postsHeader}>
+                    <Text style={styles.postsHeading}>Your most popular posts</Text>
+                    <Text style={styles.postsParagraph}>Your posts gained 120% more engagement this week!</Text>
+                </View>
+                <View>
+                    <FlatList
+                        data={posts}
+                        renderItem={({ item }) => <PostComponent title={item.title} content={item.content} />}
+                        keyExtractor={(item, index) => index.toString()}
+                    />
+                </View>
             </View>
-            <View style={styles.postsHeader}>
-                <Text style={styles.postsHeading}>Your most popular posts</Text>
-                <Text style={styles.postsParagraph}>Your posts gained 120% more engagement this week!</Text>
-            </View>
-            <View>
-                <FlatList
-                    data={posts}
-                    renderItem={({ item }) => <PostComponent title={item.title} content={item.content} />}
-                    keyExtractor={(item, index) => index.toString()}
-                />
-            </View>
-        </View>
     );
 }
 
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
+        // marginTop: 20,
         // justifyContent: 'center',
         // alignItems: 'center',
     },

@@ -6,6 +6,7 @@ import SettingsScreen from "../screens/SettingsScreen";
 import MainTabs from "./MainTabs";
 import { TouchableOpacity, View } from "react-native";
 import Icon from "react-native-vector-icons/Entypo";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Drawer = createDrawerNavigator();
 
@@ -14,7 +15,7 @@ const DrawerNavigator = () => {
     <Drawer.Navigator initialRouteName="MainTabs" screenOptions={{
       header: ({navigation, route, options}) => {
         return (
-          <View style={{ flexDirection: "row", paddingTop: 12, paddingHorizontal: 10 }}>
+          <View style={{ flexDirection: "row", paddingTop: 62, paddingHorizontal: 10 }}>
             <TouchableOpacity onPress={() => {
               navigation.toggleDrawer();
             }}>

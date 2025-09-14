@@ -105,6 +105,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
+        marginTop: 20,
         // gap: 24,
     },
     image: {

@@ -4,6 +4,7 @@ import Logo from '../components/Logo';
 import MySolidButton from '../components/MySolidButton';
 import type { StackNavigationProp } from '@react-navigation/stack';
 import OnBoardingScreenComponent from '../components/OnBoardingScreenComponent';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type OnBoardingScreenProps = {
     navigation: StackNavigationProp<any>;
@@ -46,22 +47,22 @@ const onBoarding = [
 ];
 const OnBoardingScreen = ({ navigation }: OnBoardingScreenProps) => {
     return (
-        <ScrollView
-            pagingEnabled
-            horizontal
-        >
-            {onBoarding.map((item, index) => (
-                <OnBoardingScreenComponent
-                    key={index}
-                    navigation={navigation}
-                    heading={item.heading}
-                    paragraph={item.paragraph}
-                    buttonText={item.buttonText}
-                    step={index}
-                />
-            )
-            )}
-        </ScrollView>
+            <ScrollView
+                pagingEnabled
+                horizontal
+            >
+                {onBoarding.map((item, index) => (
+                    <OnBoardingScreenComponent
+                        key={index}
+                        navigation={navigation}
+                        heading={item.heading}
+                        paragraph={item.paragraph}
+                        buttonText={item.buttonText}
+                        step={index}
+                    />
+                )
+                )}
+            </ScrollView>
     );
 };
 

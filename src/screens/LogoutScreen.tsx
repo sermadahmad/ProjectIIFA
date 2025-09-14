@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 const LogoutScreen = () => (
   <View style={styles.container}>
-    <Text>Profile Screen</Text>
+    <Text>Logout Screen</Text>
   </View>
 );
 

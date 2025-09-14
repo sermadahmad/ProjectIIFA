@@ -9,6 +9,7 @@ import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MyInputField from "../components/MyInputField";
 import MySolidButton from "../components/MySolidButton";
 import type { StackNavigationProp } from '@react-navigation/stack';
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 const { width } = Dimensions.get("window");

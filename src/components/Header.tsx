@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'column',
-    marginTop: 20,
+    marginTop: 40,
   },
   text: {
     fontFamily: 'Montserrat',
