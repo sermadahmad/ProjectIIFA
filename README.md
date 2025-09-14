@@ -25,9 +25,10 @@ ProjectIIFA is a React Native mobile application featuring a modern onboarding f
 ## Demo
 A screen recording showcasing the app's flow—from splash screen, onboarding, authentication, to navigation—is available below:
 
-<video src="src/assets/videos/postimpact%20video.mp4" controls width="600">
-  Your browser does not support the video tag.
-</video>
+
+https://github.com/user-attachments/assets/15066a30-cf37-48c3-a5bd-06088ea3e3ae
+
+
 
 ## Getting Started
 1. Clone the repository:
