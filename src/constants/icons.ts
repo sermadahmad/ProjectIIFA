@@ -1,7 +1,7 @@
-import Logo from '../assets/icons/Logo.svg'
-import Flag from '../assets/icons/Flag.svg'
-import DropDown from '../assets/icons/DropDown.svg'
-import Eye from '../assets/icons/Eye.svg'
+import Logo from '../assets/icons/logo.svg'
+import Flag from '../assets/icons/flag.svg'
+import DropDown from '../assets/icons/dropdown.svg'
+import Eye from '../assets/icons/eye.svg'
 
 import OBSLogo from '../assets/icons/OnBoardingScreen/OBSLogo.svg'
 import OBSImage from '../assets/icons/OnBoardingScreen/OBSImage.svg'
